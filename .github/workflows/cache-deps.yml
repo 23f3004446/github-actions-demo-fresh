@@ -1,7 +1,7 @@
 name: Cache Dependencies Workflow
 
 on:
-  workflow_dispatch:  # allows manual trigger
+  workflow_dispatch:  # manually triggerable
 
 jobs:
   cache-job:
@@ -11,11 +11,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Create cache folder
+        run: mkdir -p cache-test
+
       - name: prime-cache-8a1c90e
         id: cache-step
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pip
+          path: cache-test
           key: cache-8a1c90e
 
       - name: Show cache status
