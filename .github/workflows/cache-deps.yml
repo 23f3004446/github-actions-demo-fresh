@@ -1,0 +1,22 @@
+name: Cache Dependencies Workflow
+
+on:
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  cache-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: prime-cache-8a1c90e
+        id: cache-step
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: cache-8a1c90e
+
+      - name: Show cache status
+        run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
